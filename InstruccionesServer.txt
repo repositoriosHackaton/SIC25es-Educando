@@ -1,0 +1,8 @@
+
+
+* Levantar el servidor de laravel
+/*importar la BD que se ha dejado en el proyecto laravel para el historial del chat*/
+php artisan serve
+
+*Levantar Servidor de React intrucciones en: chatboot\README.md
+
