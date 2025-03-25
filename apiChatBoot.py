@@ -2,8 +2,13 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import random
 from fastapi.staticfiles import StaticFiles
+
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
+
+
+import joblib
+import pandas as pd
 
 
 # levantar el servidor, si es en modo local
@@ -22,8 +27,6 @@ app.add_middleware(
     allow_methods=["*"],  
     allow_headers=["*"], 
 )
-
-
 
 chatbot = ChatBot("Asistente")
 
@@ -47,6 +50,13 @@ print("***Previene y cuida tu salud***")
     
 @app.post("/HipertensoBot")
 async def HipertensoBot(request: Request):
+    #Cargar los modelos
+    try:
+        model = joblib.load('modelo_XGBCkassifier.pkl')
+        escalar = joblib.load('modelo_escalado.pkl')
+    except Exception as e:
+        print(f"Error al cargar el modelo: {e}")
+
     # obtenemos lo enviado que es un diccionaro
     data = await request.json()
     
@@ -57,19 +67,19 @@ async def HipertensoBot(request: Request):
     # llega en este formado, un diccionario
     # {
     #     "edad": "",
-    #     "genero": "",
-    #     "dolor": "",
+    #     "genero": "", (1:Hombre, 0:Mujer)
+    #     "dolor": "", (0:Asintomatico, 1:Angina tipica, 2:Angina atipica, 3:Dolor no anginal)
     #     "presion_sangre": "",
     #     "colesterol": "",
-    #     "nivel_azucar": "",
+    #     "nivel_azucar": "", (1:Si, 0:No)
     #     "frecuencia_cardiaca": "",
-    #     "dolor_present_pecho": ""
+    #     "dolor_present_pecho": "" (1:Si,0:No)
     # }
   
     if form_keys is not None:
         #hacer lo que se debe
         print(form_keys)
-  
+        cadena = form_keys['edad']+ ' '+form_keys['genero']
         
    
    # Procesar el mensaje
