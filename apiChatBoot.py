@@ -138,21 +138,21 @@ async def HipertensoBot(request: Request):
                 respuesta = "¡Adiós!"
             elif user_input in op1:
                 respuesta = "LINK"
-            elif user_input in op2:
-                respuesta = """
-                **DATOS NECESARIOS**
-                1. Edad
-                2. Género
-                3. Dolor en el pecho (Anginas)
-                4. Presión en sangre
-                5. Colesterol
-                6. Tiene nivel de azúcar alto?
-                7. Frecuencia cardiaca máxima
-                8. Presenta dolores de pecho al hacer ejercicio? (Anginas)
-                """
+            # elif user_input in op2:
+            #     respuesta = """
+            #     **DATOS NECESARIOS**
+            #     1. Edad
+            #     2. Género
+            #     3. Dolor en el pecho (Anginas)
+            #     4. Presión en sangre
+            #     5. Colesterol
+            #     6. Tiene nivel de azúcar alto?
+            #     7. Frecuencia cardiaca máxima
+            #     8. Presenta dolores de pecho al hacer ejercicio? (Anginas)
+            #     """
             else:
                 # Usar el chatbot para obtener la respuesta
-                respuesta = chatbot.get_response(user_input)
+                respuesta = chatbot.get_response(user_input).text
 
             # Devolver la respuesta en el formato deseado
             # la respuesta mandarlo todo en un solo string no mandar diccionario array etc...

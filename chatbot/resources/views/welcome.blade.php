@@ -5,8 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="https://chatboot-production-9c1c.up.railway.app/assets/assets/chatbot.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HipertensoBot</title>
-    <script type="module" crossorigin src="http://127.0.0.1:8000/index.js"></script>
-    <link rel="stylesheet" crossorigin href="http://127.0.0.1:8000/index.css">
+    <script type="module" crossorigin src="http://127.0.0.1:8000/index-CpIgb4wp.js"></script>
+    <link rel="stylesheet" crossorigin href="http://127.0.0.1:8000/index-BJqzGoiT.css">
   </head>
   <body>
     <main id="root">
