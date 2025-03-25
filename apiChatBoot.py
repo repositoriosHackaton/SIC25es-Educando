@@ -2,14 +2,14 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import random
 from fastapi.staticfiles import StaticFiles
-<<<<<<< Updated upstream
+
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
-=======
+
 import joblib
 import pandas as pd
->>>>>>> Stashed changes
+
 
 # levantar el servidor, si es en modo local
 # uvicorn apiChatBoot:app --reload
@@ -27,8 +27,6 @@ app.add_middleware(
     allow_methods=["*"],  
     allow_headers=["*"], 
 )
-
-
 
 chatbot = ChatBot("Asistente")
 
@@ -64,47 +62,45 @@ async def HipertensoBot(request: Request):
     
     # obtenemos el mensaje, [disponible para hacer lo que se desee]
     mensaje = data['mensaje']
-<<<<<<< Updated upstream
    
     form_keys = data['formKeys']
     # llega en este formado, un diccionario
     # {
     #     "edad": "",
-    #     "genero": "",
-    #     "dolor": "",
+    #     "genero": "", (1:Hombre, 0:Mujer)
+    #     "dolor": "", (0:Asintomatico, 1:Angina tipica, 2:Angina atipica, 3:Dolor no anginal)
     #     "presion_sangre": "",
     #     "colesterol": "",
-    #     "nivel_azucar": "",
+    #     "nivel_azucar": "", (1:Si, 0:No)
     #     "frecuencia_cardiaca": "",
-    #     "dolor_present_pecho": ""
+    #     "dolor_present_pecho": "" (1:Si,0:No)
     # }
     cadena = ''
     if form_keys is not None:
         #hacer lo que se debe
-        print(form_keys)
-        cadena = form_keys['edad']+ ' '+form_keys['genero']
-        
+        columnas = ['age','sex','cp','trestbps','chol','fbs','thalach','exang']
+
+        #Convertir a df
+        df = pd.DataFrame([mensaje.values()], columns=columnas)
+
+        #Escalar datos
+        datos_escalados = escalar.transform(df)
+
+        #Prediccion
+        cadena = model.predict(datos_escalados)
+
+        if cadena == 1:
+            cadena = 'EL riesgo de hipertension es alto!'
+        else:
+            cadena = 'El riesgo de hipertension es bajo!'
+
+        #print(form_keys)
+        #cadena = form_keys['edad']+ ' '+form_keys['genero']  
    
    # Procesar el mensaje
     user_input = mensaje.lower()
 
     respuesta = ""
-=======
-
-    columnas = ['age','sex','cp','trestbps','chol','fbs','thalach','exang']
-
-    #Convertir a df
-    df = pd.DataFrame(mensaje, columns=columnas)
-
-    #Escalar datos
-    datos_escalados = escalar.transform(df)
-
-    #Prediccion
-    hipert = pd.DataFrame(model.predict(datos_escalados), columns=['Hipertension'])
-
-    # Concatenar los datos originales con las predicciones
-    mensaje = pd.concat([data, hipert], axis=1)
->>>>>>> Stashed changes
     
     if user_input in despedida:
         respuesta = "¡Adiós!"
