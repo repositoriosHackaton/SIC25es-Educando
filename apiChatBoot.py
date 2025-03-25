@@ -2,9 +2,14 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import random
 from fastapi.staticfiles import StaticFiles
+<<<<<<< Updated upstream
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
+=======
+import joblib
+import pandas as pd
+>>>>>>> Stashed changes
 
 # levantar el servidor, si es en modo local
 # uvicorn apiChatBoot:app --reload
@@ -47,11 +52,19 @@ print("***Previene y cuida tu salud***")
     
 @app.post("/HipertensoBot")
 async def HipertensoBot(request: Request):
+    #Cargar los modelos
+    try:
+        model = joblib.load('modelo_XGBCkassifier.pkl')
+        escalar = joblib.load('modelo_escalado.pkl')
+    except Exception as e:
+        print(f"Error al cargar el modelo: {e}")
+
     # obtenemos lo enviado que es un diccionaro
     data = await request.json()
     
     # obtenemos el mensaje, [disponible para hacer lo que se desee]
     mensaje = data['mensaje']
+<<<<<<< Updated upstream
    
     form_keys = data['formKeys']
     # llega en este formado, un diccionario
@@ -76,6 +89,22 @@ async def HipertensoBot(request: Request):
     user_input = mensaje.lower()
 
     respuesta = ""
+=======
+
+    columnas = ['age','sex','cp','trestbps','chol','fbs','thalach','exang']
+
+    #Convertir a df
+    df = pd.DataFrame(mensaje, columns=columnas)
+
+    #Escalar datos
+    datos_escalados = escalar.transform(df)
+
+    #Prediccion
+    hipert = pd.DataFrame(model.predict(datos_escalados), columns=['Hipertension'])
+
+    # Concatenar los datos originales con las predicciones
+    mensaje = pd.concat([data, hipert], axis=1)
+>>>>>>> Stashed changes
     
     if user_input in despedida:
         respuesta = "¡Adiós!"
