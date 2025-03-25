@@ -107,7 +107,7 @@ async def HipertensoBot(request: Request):
                 cadena = model.predict(df)
                 cadena = cadena[0]
 
-                if cadena == 1:
+                if cadena == '1':
                     cadena = 'EL riesgo de hipertension es alto!'
                 else:
                     cadena = 'El riesgo de hipertension es bajo!'
