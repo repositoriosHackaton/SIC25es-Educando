@@ -67,7 +67,6 @@ async def HipertensoBot(request: Request):
         # data del formulario
         form_keys = data['formKeys']
 
-        cadena = ''
 
         
         if len(form_keys) > 0:
@@ -85,15 +84,16 @@ async def HipertensoBot(request: Request):
                     'exang': form_keys['dolor_present_pecho']  
                 }
 
-                print("*"*90)
-                print(form_keys)
-                print(dict_modelo)
-                print(type(form_keys))
-                print("*"*90)
-            
+                for col in dict_modelo:
+                    try:
+                        dict_modelo[col] = int(float(dict_modelo[col]))
+                    except ValueError:
+                        pass  
+   
 
                 #Convertir a df
-                df = pd.DataFrame([dict_modelo], dtype=int)
+                # df = pd.DataFrame([dict_modelo], dtype=int)
+                df = pd.DataFrame([dict_modelo])
 
                 #Escalar datos numericos
                 colnums = ['age','trestbps','chol']
@@ -108,9 +108,17 @@ async def HipertensoBot(request: Request):
                 cadena = cadena[0]
 
                 if cadena == '1':
-                    cadena = 'EL riesgo de hipertension es alto!'
+                    return {
+                        "tipo_usuario": "Chatboot",
+                        "mensaje": "EL riesgo de hipertension es alto!",
+                        "type": "insert"
+                    }
                 else:
-                    cadena = 'El riesgo de hipertension es bajo!'
+                    return {
+                        "tipo_usuario": "Chatboot",
+                        "mensaje": "El riesgo de hipertension es bajo!",
+                        "type": "insert"
+                    }
             except Exception as e:
           
                 return {
@@ -118,46 +126,46 @@ async def HipertensoBot(request: Request):
                     "mensaje": "Error al convertir el dataframe " +str(e),
                     "type": "false"
                 } 
-    
-        # Procesar el mensaje
-        user_input = mensaje.lower()
-
-        respuesta = ""
-        
-        if user_input in despedida:
-            respuesta = "¡Adiós!"
-        elif user_input in op1:
-            respuesta = "LINK"
-        elif user_input in op2:
-            respuesta = """
-            **DATOS NECESARIOS**
-            1. Edad
-            2. Género
-            3. Dolor en el pecho (Anginas)
-            4. Presión en sangre
-            5. Colesterol
-            6. Tiene nivel de azúcar alto?
-            7. Frecuencia cardiaca máxima
-            8. Presenta dolores de pecho al hacer ejercicio? (Anginas)
-            """
         else:
-            # Usar el chatbot para obtener la respuesta
-            respuesta = chatbot.get_response(user_input)
+            # Procesar el mensaje
+            user_input = mensaje.lower()
 
-        # Devolver la respuesta en el formato deseado
-        # la respuesta mandarlo todo en un solo string no mandar diccionario array etc...
-        return {
-            "tipo_usuario": "Chatboot",
-            "mensaje": respuesta+ ' ' + cadena,
-            "type": "insert"
-        }
+            respuesta = ""
+            
+            if user_input in despedida:
+                respuesta = "¡Adiós!"
+            elif user_input in op1:
+                respuesta = "LINK"
+            elif user_input in op2:
+                respuesta = """
+                **DATOS NECESARIOS**
+                1. Edad
+                2. Género
+                3. Dolor en el pecho (Anginas)
+                4. Presión en sangre
+                5. Colesterol
+                6. Tiene nivel de azúcar alto?
+                7. Frecuencia cardiaca máxima
+                8. Presenta dolores de pecho al hacer ejercicio? (Anginas)
+                """
+            else:
+                # Usar el chatbot para obtener la respuesta
+                respuesta = chatbot.get_response(user_input)
+
+            # Devolver la respuesta en el formato deseado
+            # la respuesta mandarlo todo en un solo string no mandar diccionario array etc...
+            return {
+                "tipo_usuario": "Chatboot",
+                "mensaje": respuesta,
+                "type": "insert"
+            }
         
         
         
     except Exception as e:
         return {
             "tipo_usuario": "Chatboot",
-            "mensaje": str(e),
+            "mensaje": "Error: "+ str(e),
             "type": "false"
         }
     
