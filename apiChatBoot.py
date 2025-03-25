@@ -95,11 +95,16 @@ async def HipertensoBot(request: Request):
                 #Convertir a df
                 df = pd.DataFrame([dict_modelo])
 
-                #Escalar datos
-                datos_escalados = escalar.transform(df)
+                #Escalar datos numericos
+                colnums = ['age','trestbps','chol']
+                df_escalado = pd.DataFrame(escalar.fit_transform(df[colnums]), columns=colnums)
+
+                #Combinar de nuevo en un solo DataFrame
+                df_restantes = df.drop(columns=colnums)
+                df = pd.concat([df_escalado, df_restantes], axis=1)
 
                 #Prediccion
-                cadena = model.predict(datos_escalados)
+                cadena = model.predict(df)
 
                 if cadena == 1:
                     cadena = 'EL riesgo de hipertension es alto!'
