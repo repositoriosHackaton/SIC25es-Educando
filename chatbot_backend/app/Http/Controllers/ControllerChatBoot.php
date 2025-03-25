@@ -79,26 +79,23 @@ class ControllerChatBoot extends Controller
                 $nueva_conver = Conversacion::create([
                     'usuario_id' => $id_usuario,
                 ]);
-
                 $id_conversacion = $nueva_conver->id;
             }
 
-          
-            Mensajes::create([
-                'conversacion_id' => $id_conversacion,
-                'mensaje' => $mensaje,
-                'actor' => $usuario,
-            ]);
-
-
-
-            if($key_forms){
-                $mensaje .= " valor 1: " . $key_forms['valor1'] . " valor 2: " . $key_forms['valor1'];
+            // en caso que se envie el form con info no registramos el mensaje adjunto
+            if($key_forms != null){
+                Mensajes::create([
+                    'conversacion_id' => $id_conversacion,
+                    'mensaje' => $mensaje,
+                    'actor' => $usuario,
+                ]);
             }
 
             // hacemos peticion a la api de python
-            $response = Http::post('https://chatboot-production-9c1c.up.railway.app/HipertensoBot', [
-                'mensaje' => $mensaje
+            // $response = Http::post('https://chatboot-production-9c1c.up.railway.app/HipertensoBot', [
+            $response = Http::post('http://127.0.0.5:5555/HipertensoBot', [
+                'mensaje' => $mensaje,
+                'formKeys' => $key_forms
             ]);
 
             // obtenemos respuesta de la api de chat boot
@@ -124,7 +121,7 @@ class ControllerChatBoot extends Controller
 
             return response()->json([
                 'success' => false,
-                'error' => $e->getMessage(),
+                'error' => $e->getMessage()
             ], 500);
         }
     }
