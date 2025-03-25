@@ -113,7 +113,8 @@ class ControllerChatBoot extends Controller
                 'success' => true,
                 'mensaje' => $respuestaBot,
                 'tipo_usuario' => $tipo_usuario,
-                'id_conversacion' => $id_conversacion
+                'id_conversacion' => $id_conversacion,
+                'apiChatboot' => $response->json()
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
