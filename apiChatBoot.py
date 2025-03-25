@@ -169,6 +169,7 @@ async def HipertensoBot(request: Request):
             "type": "false"
         }
     
+    
 
 
 # from fastapi import FastAPI, Request
