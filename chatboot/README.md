@@ -1,19 +1,11 @@
->instrucciones
-1. Ejecutar: npm install 
-2. Ejecutar (modo dev):  npm run dev
-acceder a http://localhost:5173/
-> instalar Axios
-npm install axios
+<h2> Instrucciones para la instalación de la aplicación </h2>
 
->jecutar para empaquetar todo
-1. npm run build
+Instrucciones
+> 1. Ejecutar: npm install 
+> 2. Ejecutar (en carpeta chatboot\dist): serve -s
 
->levantarlo en modo producion
-1. Ejecutar: npm install -g serve
+En caso de no funcionar serve -s , instalar
+> 1. npm install -g serve
 
->notificaciones
-1. npm install react-toastify
-
-
-<!-- > Railway -->
-<!-- uvicorn apiChatBoot:app --host 0.0.0.0 --port $PORT -->
+Realizado todo lo anterior da una direccion al navegador
+ó ingresas a la siguiente ruta: http://localhost:5000

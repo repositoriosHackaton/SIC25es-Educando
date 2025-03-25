@@ -65,11 +65,11 @@ async def HipertensoBot(request: Request):
     #     "frecuencia_cardiaca": "",
     #     "dolor_present_pecho": ""
     # }
-    cadena = ''
+  
     if form_keys is not None:
         #hacer lo que se debe
         print(form_keys)
-        cadena = form_keys['edad']+ ' '+form_keys['genero']
+  
         
    
    # Procesar el mensaje
@@ -102,7 +102,7 @@ async def HipertensoBot(request: Request):
     # la respuesta mandarlo todo en un solo string no mandar diccionario array etc...
     return {
         "tipo_usuario": "Chatboot",
-        "mensaje": respuesta+ ' ' + cadena,
+        "mensaje": respuesta,
         "type": "insert",
         "json_form" : form_keys
     }

@@ -83,7 +83,7 @@ class ControllerChatBoot extends Controller
             }
 
             // en caso que se envie el form con info no registramos el mensaje adjunto
-            if($key_forms != null){
+            if($key_forms == null){
                 Mensajes::create([
                     'conversacion_id' => $id_conversacion,
                     'mensaje' => $mensaje,
@@ -92,7 +92,6 @@ class ControllerChatBoot extends Controller
             }
 
             // hacemos peticion a la api de python
-            // $response = Http::post('https://chatboot-production-9c1c.up.railway.app/HipertensoBot', [
             $response = Http::post('http://127.0.0.5:5555/HipertensoBot', [
                 'mensaje' => $mensaje,
                 'formKeys' => $key_forms
