@@ -93,7 +93,7 @@ async def HipertensoBot(request: Request):
             
 
                 #Convertir a df
-                df = pd.DataFrame([dict_modelo])
+                df = pd.DataFrame([dict_modelo], dtype=int)
 
                 #Escalar datos numericos
                 colnums = ['age','trestbps','chol']
