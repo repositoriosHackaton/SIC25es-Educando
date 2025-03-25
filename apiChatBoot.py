@@ -75,12 +75,27 @@ async def HipertensoBot(request: Request):
     #     "frecuencia_cardiaca": "",
     #     "dolor_present_pecho": "" (1:Si,0:No)
     # }
-  
+    cadena = ''
     if form_keys is not None:
         #hacer lo que se debe
-        print(form_keys)
-        cadena = form_keys['edad']+ ' '+form_keys['genero']
-        
+        columnas = ['age','sex','cp','trestbps','chol','fbs','thalach','exang']
+
+        #Convertir a df
+        df = pd.DataFrame([mensaje.values()], columns=columnas)
+
+        #Escalar datos
+        datos_escalados = escalar.transform(df)
+
+        #Prediccion
+        cadena = model.predict(datos_escalados)
+
+        if cadena == 1:
+            cadena = 'EL riesgo de hipertension es alto!'
+        else:
+            cadena = 'El riesgo de hipertension es bajo!'
+
+        #print(form_keys)
+        #cadena = form_keys['edad']+ ' '+form_keys['genero']  
    
    # Procesar el mensaje
     user_input = mensaje.lower()
@@ -112,11 +127,8 @@ async def HipertensoBot(request: Request):
     # la respuesta mandarlo todo en un solo string no mandar diccionario array etc...
     return {
         "tipo_usuario": "Chatboot",
-        "mensaje": respuesta,
+        "mensaje": respuesta+ ' ' + cadena,
         "type": "insert",
         "json_form" : form_keys
     }
      
-     
-# para imagenes de cada chat
-app.mount("/assets", StaticFiles(directory="static"), name="static")
