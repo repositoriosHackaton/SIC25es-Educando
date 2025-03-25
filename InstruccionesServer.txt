@@ -6,3 +6,29 @@ php artisan serve
 
 *Levantar Servidor de React intrucciones en: chatboot\README.md
 
+
+
+ # llega en este formado, un diccionario
+        # {
+        #     "edad": "",
+        #     "genero": "", (1:Hombre, 0:Mujer)
+        #     "dolor": "", (0:Asintomatico, 1:Angina tipica, 2:Angina atipica, 3:Dolor no anginal)
+        #     "presion_sangre": "",
+        #     "colesterol": "",
+        #     "nivel_azucar": "", (1:Si, 0:No)
+        #     "frecuencia_cardiaca": "",
+        #     "dolor_present_pecho": "" (1:Si,0:No)
+        # }
+
+
+
+        dict_modelo = {
+                'age': form_keys['edad'],  # 'edad' -> 'age'
+                'sex': form_keys['genero'],  # 'genero' -> 'sex'
+                'cp': form_keys['dolor'],  # 'dolor' -> 'cp'
+                'trestbps': form_keys['presion_sangre'],  # 'presion_sangre' -> 'trestbps'
+                'chol': form_keys.get['colesterol'],  # 'colesterol' -> 'chol'
+                'fbs': form_keys['nivel_azucar'],  # 'nivel_azucar' -> 'fbs'
+                'thalach': form_keys['frecuencia_cardiaca'],  # 'frecuencia_cardiaca' -> 'thalach'
+                'exang': form_keys['dolor_present_pecho']  # 'dolor_present_pecho' -> 'exang'
+            }
