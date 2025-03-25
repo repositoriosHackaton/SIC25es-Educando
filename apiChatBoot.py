@@ -93,9 +93,8 @@ async def HipertensoBot(request: Request):
             
 
                 #Convertir a df
-                df = pd.DataFrame([dict_modelo])
-                df = df.astype({col: int for col in df.columns if col not in ['age', 'sex']})  
-                df[['age', 'sex']] = df[['age', 'sex']].astype(float) 
+                df = pd.DataFrame([dict_modelo], dtype=float)
+                df[['cp','trestbps','chol','fbs','thalach','exang']] = df[['cp','trestbps','chol','fbs','thalach','exang']].astype(int)
 
                 #Escalar datos numericos
                 colnums = ['age','trestbps','chol']
