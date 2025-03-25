@@ -91,11 +91,9 @@ async def HipertensoBot(request: Request):
                 print(type(form_keys))
                 print("*"*90)
             
-                #hacer lo que se debe
-                columnas = ['age','sex','cp','trestbps','chol','fbs','thalach','exang']
 
                 #Convertir a df
-                df = pd.DataFrame([dict_modelo.values()], columns=columnas)
+                df = pd.DataFrame([dict_modelo])
 
                 #Escalar datos
                 datos_escalados = escalar.transform(df)
