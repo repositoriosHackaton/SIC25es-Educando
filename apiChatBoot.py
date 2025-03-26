@@ -7,8 +7,6 @@ import pandas as pd
 import json
 
 # levantar el servidor, si es en modo local
-# uvicorn apiChatBoot:app --reload
-
 # modificacion levantando en un puerto distinto laravel corre en el 8080
 # uvicorn apiChatBoot:app --reload --host 127.0.0.5 --port 5555
 # endpoint generado: http://127.0.0.5:5555/HipertensoBot
@@ -36,13 +34,7 @@ despedida = ['salir', 'adios', 'chao', 'hasta luego', "3"]
 op1 = ['op1','opcion 1','opcion1','1', 'formulario']
 op2 = ['op2','2', 'opcion 2','opcion2']
 
-# print("***Cardio Salud ES***")
-# print("1) Realizar formulario")
-# print("2) Explicame los datos necesarios")
-# print("3) Salir")
-# print("Nota: Recuerde que estos no son datos oficiales. Consulta con tu medico cualquier sintoma que presentes")
-# print("***Previene y cuida tu salud***")
-    
+
 @app.post("/HipertensoBot")
 async def HipertensoBot(request: Request):
     try:
@@ -54,8 +46,7 @@ async def HipertensoBot(request: Request):
             print(f"Error al cargar el modelo: {str(e)}")
             return {
                 "tipo_usuario": "Chatboot",
-                "mensaje": "Error al cargar el modelo: " +str(e),
-                "type": "false"
+                "mensaje": "Error al cargar el modelo: " +str(e)
             }
 
         # obtenemos lo enviado que es un diccionaro
@@ -109,21 +100,18 @@ async def HipertensoBot(request: Request):
                 if cadena == '1':
                     return {
                         "tipo_usuario": "Chatboot",
-                        "mensaje": "EL riesgo de hipertension es alto!",
-                        "type": "insert"
+                        "mensaje": "EL riesgo de hipertension es alto!"
                     }
                 else:
                     return {
                         "tipo_usuario": "Chatboot",
-                        "mensaje": "El riesgo de hipertension es bajo!",
-                        "type": "insert"
+                        "mensaje": "El riesgo de hipertension es bajo!"
                     }
             except Exception as e:
           
                 return {
                     "tipo_usuario": "Chatboot",
-                    "mensaje": "Error al convertir el dataframe " +str(e),
-                    "type": "false"
+                    "mensaje": "Error al convertir el dataframe " +str(e)
                 } 
         else:
             # obtenemos el mensaje, [disponible para hacer lo que se desee]
@@ -138,29 +126,25 @@ async def HipertensoBot(request: Request):
                 respuesta = "¡Adiós!"
             elif user_input in op1:
                 respuesta = "LINK"
-            # elif user_input in op2:
-            #     respuesta = """
-            #     **DATOS NECESARIOS**
-            #     1. Edad
-            #     2. Género
-            #     3. Dolor en el pecho (Anginas)
-            #     4. Presión en sangre
-            #     5. Colesterol
-            #     6. Tiene nivel de azúcar alto?
-            #     7. Frecuencia cardiaca máxima
-            #     8. Presenta dolores de pecho al hacer ejercicio? (Anginas)
-            #     """
+            elif user_input in op2:
+                respuesta = """
+                DATOS NECESARIOS
+                <br> 1. Edad
+                <br> 2. Género
+                <br> 3. Dolor en el pecho (Anginas)
+                <br> 4. Presión en sangre
+                <br> 5. Colesterol
+                <br> 6. Tiene nivel de azúcar alto?
+                <br> 7. Frecuencia cardiaca máxima
+                <br> 8. Presenta dolores de pecho al hacer ejercicio? (Anginas)
+                """
             else:
                 # Usar el chatbot para obtener la respuesta
                 respuesta = chatbot.get_response(user_input).text
 
-            # Devolver la respuesta en el formato deseado
-            # la respuesta mandarlo todo en un solo string no mandar diccionario array etc...
             return {
                 "tipo_usuario": "Chatboot",
                 "mensaje": respuesta,
-                "type": "insert",
-                "x" : 'modelo de conversacion'
             }
         
         
@@ -169,6 +153,5 @@ async def HipertensoBot(request: Request):
         return {
             "tipo_usuario": "Chatboot",
             "mensaje": "Error: "+ str(e),
-            "type": "false"
         }
     
