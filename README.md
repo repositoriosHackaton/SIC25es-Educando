@@ -19,9 +19,13 @@ Ademas, se presenta un chatbot entrenado para facilitar la interaccion con el us
 * Nombre del proyecto
 
 Analisis de Prediccion de Hipertensión
+Cardio Salud ES
 
 * Breve descripción del proyecto -> Alguna imagen o gif que muestre el proyecto
 
+Se presenta un modelo de prediccion categorico donde, a partir de ciertas caracteristicas, predice si el usuario tiene hipertension o no. Ademas, se implementa un chatbot entrenado que facilite la aplicacion del modelo antes mencionado.
+
+![alt text](/imgs/image.png)
 
 * Arquitectura del proyecto + imagen
 
@@ -30,6 +34,13 @@ El modelo de IA utiliza diferentes tecnicas aprendidas durante el curso, dentro 
     - Escalado de datos con MinMaxScaler
     - Aplicacion del modelo XGBClassifier
     - Utilizacion de GridSearch para encontrar los mejores hiperparametros
+
+La pagina web se realizo con las siguientes herramientas:
+    - Laravel PHP para la gestion de logica del servidor y la interaccion con la base de datos.
+    - MySQL base de datos relacional 
+    - FrontEnd con React (Framework de JS)
+
+![alt text](/imgs/image-1.png)
 
 * Proceso de desarrollo:
 
@@ -59,3 +70,18 @@ file_path = os.path.join(data, "hypertension_data.csv")
 
 
 * Funcionalidades extra:
+
+    - Se ha realizado un chatbot entrenado que facilite la interaccion del usuario.
+    - El chatbot ha sido entrenado con conversaciones especificas para la implementacion del modelo.
+    - El sitio web es capaz de guardar historicos de conversaciones y resultados.
+    - Se crea un sitio web que presente al chatbot de forma atractiva.
+
+
+![alt text](imgs/image-2.png)
+
+* Estado de proyecto: COMPLETADO.
+
+* Agradecimientos: 
+
+El equipo de Educando agradece a todos los miembros del Samsung Innovation Campus que hacen posible la realizacion de estas certificaciones, que permiten que muchos estudiantes como nosotros se desarrollen tanto personal como profesionalmente.
+El proyecto se dedica a cada una de nuestras familias, por su amor y apoyo incondicional.
