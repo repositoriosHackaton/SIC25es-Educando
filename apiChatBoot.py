@@ -6,7 +6,6 @@ import joblib
 import pandas as pd
 import json
 
-# levantar el servidor, si es en modo local
 # modificacion levantando en un puerto distinto laravel corre en el 8080
 # uvicorn apiChatBoot:app --reload --host 127.0.0.5 --port 5555
 # endpoint generado: http://127.0.0.5:5555/HipertensoBot
@@ -51,8 +50,6 @@ async def HipertensoBot(request: Request):
 
         # obtenemos lo enviado que es un diccionaro
         data = await request.json()
-        
-       
     
         # data del formulario
         form_keys = data['formKeys']
@@ -80,9 +77,6 @@ async def HipertensoBot(request: Request):
                     except ValueError:
                         pass  
    
-
-                #Convertir a df
-                # df = pd.DataFrame([dict_modelo], dtype=int)
                 df = pd.DataFrame([dict_modelo])
 
                 #Escalar datos numericos
@@ -146,9 +140,7 @@ async def HipertensoBot(request: Request):
                 "tipo_usuario": "Chatboot",
                 "mensaje": respuesta,
             }
-        
-        
-        
+         
     except Exception as e:
         return {
             "tipo_usuario": "Chatboot",
