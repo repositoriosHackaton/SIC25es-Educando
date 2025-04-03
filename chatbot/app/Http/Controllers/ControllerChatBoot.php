@@ -25,7 +25,7 @@ class ControllerChatBoot extends Controller
         $usuario = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password), // encriptado
+            'password' => Hash::make($request->password),
         ]);
 
         return response()->json([
